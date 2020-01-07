@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.6"
+
+services:
+  - docker
+before_install:
+- docker build -t ayanochkin/flaskex .
+- docker run -d -p 80:8000 ayanochkin/flaskex /bin/sh -c "/usr/bin/python3 app.py"
+- docker ps -a
+- docker run ayanochkin/flaskex
+
+deploy:
+ provider: script
+  script: bash docker_push
+  on:
+    branch: master
+    
+script: echo "Success!"
