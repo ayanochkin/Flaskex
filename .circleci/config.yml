@@ -11,10 +11,7 @@ jobs:
       - image: circleci/python:3.6.1
       
     working_directory: ~/app
-    
-        steps:
-      - checkout
-
+ 
       # Download and cache dependencies
       - restore_cache:
           keys:
