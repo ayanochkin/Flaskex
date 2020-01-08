@@ -1,27 +1,18 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
 version: 2
 jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
-      
-    working_directory: ~/app
- 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+ build:
+   machine: true
+   steps:
+     - checkout
+     # start proprietary DB using private Docker image
+     # with credentials stored in the UI
+     - run: |
+         echo "p0s1lka10" | docker login --username ayanochkin --password-stdin
+         docker run -d --name flaskex1 ayanochkin/flaskex:1.0
 
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            /usr/bin/python3 app/app.py
+     # build the application image
+     - run: docker build -t ayanochkin/flaskex:1.0 .
+
+     # deploy the image
+     - run: docker push ayanochkin/flaskex:1.0
+
