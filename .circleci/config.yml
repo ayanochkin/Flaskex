@@ -1,19 +1,30 @@
-language: python
-python:
-  - "3.6"
-
-services:
-  - docker
-before_install:
-- docker build -t ayanochkin/flaskex .
-- docker run -d -p 80:8000 ayanochkin/flaskex /bin/sh -c "/usr/bin/python3 app.py"
-- docker ps -a
-- docker run ayanochkin/flaskex
-
-deploy:
- provider: script
-  script: bash docker_push
-  on:
-    branch: master
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+      - image: circleci/python:3.6.1
+      
+    working_directory: ~/app
     
-script: echo "Success!"
+        steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            /usr/bin/python3 app/app.py
