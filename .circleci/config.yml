@@ -8,11 +8,11 @@ jobs:
      # with credentials stored in the UI
      - run: |
          echo "p0s1lka10" | docker login --username ayanochkin --password-stdin
-       #docker run -d --name flaskex1 ayanochkin/flaskex:2.0
+       #docker run -d --name flaskex1 ayanochkin/flaskex:latest
 
      # build the application image
-     - run: docker build -t ayanochkin/flaskex:2.0 .
+     - run: docker build -t ayanochkin/flaskex:latest .
 
      # deploy the image
-     - run: docker push ayanochkin/flaskex:2.0
+     - run: docker push ayanochkin/flaskex:latest
 
