@@ -53,6 +53,9 @@ vim ~/.ssh/authorized_keys
 to check containers on HOST:
 docker container ls -a
 
+Connect to AWS SERVER:
+ssh -i "EC2-Instance1.pem" ubuntu@ec2-54-172-64-214.compute-1.amazonaws.com
+
 ===============
 installation locally:
 git clone https://github.com/anfederico/Flaskex
