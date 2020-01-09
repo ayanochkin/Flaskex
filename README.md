@@ -28,7 +28,7 @@
 ``` 
 on first stage push request from github creates docker image by CircleCI and putting it on DockerHub https://hub.docker.com/repository/docker/ayanochkin/flaskex
 
-on second stage we start ansible playbook on [AWS SERVER](http://3.93.246.62/)
+on second stage we start ansible playbook on AWS SERVER 3.93.246.62
 Preparation of AWS SERVER:
 sudo apt-get upgrade -y
 sudo apt-add-repository ppa:ansible/ansible
