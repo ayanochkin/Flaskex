@@ -26,6 +26,35 @@
 
 ## Setup
 ``` 
+on first stage push request from github creates docker image by CircleCI and putting it on DockerHub https://hub.docker.com/repository/docker/ayanochkin/flaskex
+
+on second stage we start ansible playbook on AWS SERVER http://3.93.246.62/
+Preparation of AWS SERVER:
+sudo apt-get upgrade -y
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible -y
+sudo apt-get install python -y
+sudo apt-get install docker.io python3-docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+ssh ubuntu@EXTERNAL_IP_OF_HOST
+sudo vim /etc/ansible/hosts
+ansible -m ping all
+sudo vim ubuntu_playbook.yml
+
+Preparation on AWS HOST:
+sudo -s
+adding ssh-key from SERVER
+vim ~/.ssh/authorized_keys
+to check containers on HOST:
+docker container ls -a
+
+===============
+installation locally:
 git clone https://github.com/anfederico/Flaskex
 cd Flaskex
 pip install -r requirements.txt
